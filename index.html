@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Platinum</title>
+<link rel="shortcut icon" href="/platinum.ico"/>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-database.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyDuDKCGfOxsGub5FXHfwnP4QDZamNWtfoo",
+    authDomain: "pbntry.firebaseapp.com",
+    databaseURL: "https://pbntry-default-rtdb.firebaseio.com",
+    projectId: "pbntry",
+    storageBucket: "pbntry.appspot.com",
+    messagingSenderId: "846087838536",
+    appId: "1:846087838536:web:c95b1285b9a31186b7717d",
+    measurementId: "G-5FK6683YSQ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  db = firebase.database()
+</script>
+</head>
+<body>
+<script>
+    var starCountRef = firebase.database().ref('/').child("messages");
+    starCountRef.on('child_added', (snapshot) => {
+        data = snapshot.val();
+        console.log(data);
+        document.getElementById("d").innerHTML += "<p>" + data + "</p>";
+        document.getElementById("d").innerHTML += "<hr>";
+});
+
+function send() {
+    data = document.getElementById("txt").value;
+    db.ref('/').child("messages").push(data);
+    document.getElementById("txt").value = "";
+}
+
+function checkEnter() {
+    var key = window.event.keyCode;
+
+    // If the user has pressed enter
+    if (key === 13) {
+        send();
+    }
+}
+</script>
+<h1>Platinum©</h1>
+<hr>
+<div id="d"></div>
+<input name="" id="txt" cols="30" rows="10" onkeypress="checkEnter()"></input>
+<button onclick="send()">click</button>
+</body>
+</html>
